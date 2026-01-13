@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEM Exam Prep - Math, Physics, Chemistry</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- MathJax for equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                <span>STEMExamPro</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="#subjects"><i class="fas fa-book"></i> Subjects</a>
+                <a href="#features"><i class="fas fa-star"></i> Features</a>
+                <a href="exam.html"><i class="fas fa-play-circle"></i> Start Exam</a>
+                <a href="admin.html"><i class="fas fa-cog"></i> Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master <span class="highlight">Math</span>, <span class="highlight">Physics</span> & <span class="highlight">Chemistry</span></h1>
+                <p class="subtitle">AI-powered exam preparation with instant feedback and detailed solutions</p>
+                <div class="cta-buttons">
+                    <a href="exam.html" class="btn-primary">
+                        <i class="fas fa-bolt"></i> Quick Test
+                    </a>
+                    <a href="#subjects" class="btn-secondary">
+                        <i class="fas fa-graduation-cap"></i> Browse Subjects
+                    </a>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <h3>500+</h3>
+                        <p>Questions</p>
+                    </div>
+                    <div class="stat">
+                        <h3>3</h3>
+                        <p>Subjects</p>
+                    </div>
+                    <div class="stat">
+                        <h3>24/7</h3>
+                        <p>Available</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="formula-display">
+                    <div class="formula-card math">
+                        <p>\[ \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi} \]</p>
+                        <span class="subject-label">Mathematics</span>
+                    </div>
+                    <div class="formula-card physics">
+                        <p>\[ F = ma \quad E = mc^2 \]</p>
+                        <span class="subject-label">Physics</span>
+                    </div>
+                    <div class="formula-card chemistry">
+                        <p>\[ 2H_2 + O_2 \rightarrow 2H_2O \]</p>
+                        <span class="subject-label">Chemistry</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subjects Section -->
+    <section id="subjects" class="subjects">
+        <div class="container">
+            <h2>Choose Your Subject</h2>
+            <p class="section-subtitle">Comprehensive question banks for each STEM subject</p>
+            
+            <div class="subject-cards">
+                <div class="subject-card">
+                    <div class="subject-icon math-bg">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Mathematics</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Algebra & Calculus</li>
+                        <li><i class="fas fa-check"></i> Geometry & Trigonometry</li>
+                        <li><i class="fas fa-check"></i> Statistics & Probability</li>
+                        <li><i class="fas fa-check"></i> 200+ Questions</li>
+                    </ul>
+                    <button class="btn-subject" onclick="startExam('mathematics')">
+                        Start Math Test
+                    </button>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon physics-bg">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h3>Physics</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Mechanics</li>
+                        <li><i class="fas fa-check"></i> Electromagnetism</li>
+                        <li><i class="fas fa-check"></i> Thermodynamics</li>
+                        <li><i class="fas fa-check"></i> 150+ Questions</li>
+                    </ul>
+                    <button class="btn-subject" onclick="startExam('physics')">
+                        Start Physics Test
+                    </button>
+                </div>
+                
+                <div class="subject-card">
+                    <div class="subject-icon chemistry-bg">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Chemistry</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Organic Chemistry</li>
+                        <li><i class="fas fa-check"></i> Physical Chemistry</li>
+                        <li><i class="fas fa-check"></i> Inorganic Chemistry</li>
+                        <li><i class="fas fa-check"></i> 150+ Questions</li>
+                    </ul>
+                    <button class="btn-subject" onclick="startExam('chemistry')">
+                        Start Chemistry Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2>Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Timed Exams</h3>
+                    <p>Simulate real exam conditions with countdown timer</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Math Equations</h3>
+                    <p>Full LaTeX support for complex equations</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Detailed Analytics</h3>
+                    <p>Track progress and identify weak areas</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">
+                        <i class="fas fa-random"></i>
+                    </div>
+                    <h3>Randomized Tests</h3>
+                    <p>Different questions each time you practice</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-atom"></i> STEMExamPro</h3>
+                    <p>Master STEM subjects through intelligent exam preparation</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="exam.html">Take Exam</a>
+                    <a href="admin.html">Add Questions</a>
+                    <a href="#subjects">Subjects</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Subjects</h4>
+                    <a href="#">Mathematics</a>
+                    <a href="#">Physics</a>
+                    <a href="#">Chemistry</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 STEMExamPro. All rights reserved.</p>
+                <p>Designed for serious STEM students</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function startExam(subject) {
+            localStorage.setItem('selectedSubject', subject);
+            localStorage.setItem('questionCount', 10);
+            localStorage.setItem('examTime', 30); // 30 minutes
+            window.location.href = 'exam.html';
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

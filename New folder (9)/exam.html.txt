@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Exam - STEMExamPro</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                <span>STEMExamPro</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="exam.html" class="active"><i class="fas fa-play-circle"></i> Exam</a>
+                <a href="results.html"><i class="fas fa-chart-bar"></i> Results</a>
+                <a href="admin.html"><i class="fas fa-cog"></i> Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Exam Header -->
+        <div class="exam-header">
+            <div class="exam-info">
+                <div class="exam-info-item">
+                    <h3>Subject</h3>
+                    <p id="current-subject">Mathematics</p>
+                </div>
+                <div class="exam-info-item">
+                    <h3>Question</h3>
+                    <p id="question-counter">1/10</p>
+                </div>
+                <div class="exam-info-item">
+                    <h3>Score</h3>
+                    <p id="current-score">0</p>
+                </div>
+            </div>
+            <div class="timer" id="timer">
+                30:00
+            </div>
+        </div>
+
+        <!-- Question Container -->
+        <div class="question-container">
+            <div class="question-text" id="question-text">
+                Loading question...
+            </div>
+            
+            <div class="options-container" id="options-container">
+                <!-- Options will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Exam Controls -->
+        <div class="exam-controls">
+            <button class="btn-control" id="prev-btn" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            
+            <button class="btn-control" id="next-btn">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+            
+            <button class="btn-control" id="submit-btn" style="display: none;">
+                <i class="fas fa-paper-plane"></i> Submit Exam
+            </button>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="question-dots" id="question-dots">
+                <!-- Question dots will be inserted here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Explanation -->
+    <div class="modal" id="explanation-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Explanation</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="explanation-content">
+                <!-- Explanation will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize exam when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const subject = localStorage.getItem('selectedSubject') || 'mathematics';
+            initializeExam(subject);
+        });
+    </script>
+</body>
+</html>

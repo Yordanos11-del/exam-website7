@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - STEMExamPro</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                <span>STEMExamPro</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="exam.html"><i class="fas fa-play-circle"></i> Exam</a>
+                <a href="results.html"><i class="fas fa-chart-bar"></i> Results</a>
+                <a href="admin.html" class="active"><i class="fas fa-cog"></i> Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <h1><i class="fas fa-plus-circle"></i> Add New Question</h1>
+        
+        <form id="add-question-form">
+            <div class="form-group">
+                <label for="question-subject"><i class="fas fa-book"></i> Subject</label>
+                <select id="question-subject" required>
+                    <option value="mathematics">Mathematics</option>
+                    <option value="physics">Physics</option>
+                    <option value="chemistry">Chemistry</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="question-topic"><i class="fas fa-tag"></i> Topic</label>
+                <input type="text" id="question-topic" placeholder="e.g., Algebra, Mechanics, Organic Chemistry" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="question-difficulty"><i class="fas fa-chart-line"></i> Difficulty</label>
+                <select id="question-difficulty" required>
+                    <option value="easy">Easy</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="question-text-input"><i class="fas fa-question-circle"></i> Question Text</label>
+                <textarea id="question-text-input" rows="4" placeholder="Enter your question here. Use LaTeX for equations: $E = mc^2$" required></textarea>
+                <small>Use $...$ for inline math and $$...$$ for display math</small>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-list-ul"></i> Options</label>
+                <div id="options-container-input" class="options-input">
+                    <!-- Options will be added here by JavaScript -->
+                </div>
+                <button type="button" class="add-option" onclick="addOptionInput()">
+                    <i class="fas fa-plus"></i> Add Option
+                </button>
+            </div>
+            
+            <div class="form-group">
+                <label for="correct-answer"><i class="fas fa-check-circle"></i> Correct Answer</label>
+                <select id="correct-answer" required>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="explanation-text"><i class="fas fa-lightbulb"></i> Explanation</label>
+                <textarea id="explanation-text" rows="3" placeholder="Explain why this is the correct answer" required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-submit">
+                <i class="fas fa-save"></i> Save Question
+            </button>
+        </form>
+        
+        <div class="question-stats" style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee;">
+            <h3><i class="fas fa-database"></i> Question Database Statistics</h3>
+            <div id="stats-container">
+                <!-- Stats will be loaded by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load question stats
+        function loadQuestionStats() {
+            const statsContainer = document.getElementById('stats-container');
+            if (!statsContainer) return;
+            
+            const subjects = ['mathematics', 'physics', 'chemistry'];
+            let totalQuestions = 0;
+            let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">';
+            
+            subjects.forEach(subject => {
+                const questions = questionDatabase[subject] || [];
+                const subjectName = subject.charAt(0).toUpperCase() + subject.slice(1);
+                totalQuestions += questions.length;
+                
+                // Count by difficulty
+                const easy = questions.filter(q => q.difficulty === 'easy').length;
+                const medium = questions.filter(q => q.difficulty === 'medium').length;
+                const hard = questions.filter(q => q.difficulty === 'hard').length;
+                
+                html += `
+                    <div class="stat-card" style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                        <h4 style="margin-bottom: 10px; color: #667eea;">${subjectName}</h4>
+                        <p style="font-size: 2rem; font-weight: bold; margin: 10px 0;">${questions.length}</p>
+                        <p style="color: #666; font-size: 0.9rem;">
+                            Easy: ${easy} | Medium: ${medium} | Hard: ${hard}
+                        </p>
+                    </div>
+                `;
+            });
+            
+            html += `
+                <div class="stat-card" style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 20px; border-radius: 10px;">
+                    <h4 style="margin-bottom: 10px;">Total Questions</h4>
+                    <p style="font-size: 2.5rem; font-weight: bold; margin: 10px 0;">${totalQuestions}</p>
+                    <p style="opacity: 0.9; font-size: 0.9rem;">
+                        All subjects combined
+                    </p>
+                </div>
+            </html>`;
+            
+            statsContainer.innerHTML = html;
+        }
+        
+        // Initialize admin panel when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuestionStats();
+            
+            // Update stats every 30 seconds
+            setInterval(loadQuestionStats, 30000);
+        });
+    </script>
+    
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
